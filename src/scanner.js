@@ -1,4 +1,5 @@
 const axios = require('axios');
+const ora = require('ora');
 
 const OSV_API = 'https://api.osv.dev/v1/querybatch';
 const OSV_VULN_API = 'https://api.osv.dev/v1/vulns';
@@ -30,6 +31,8 @@ async function getVulnDetail(id) {
 }
 
 async function scanPackages(packages) {
+  const spinner = ora('Querying OSV database...').start();
+
   const queries = packages.map(pkg => ({
     package: { name: pkg.name, ecosystem: 'npm' },
     version: pkg.version,
@@ -43,6 +46,8 @@ async function scanPackages(packages) {
   for (let i = 0; i < results.length; i++) {
     const result = results[i];
     const pkg = packages[i];
+
+    spinner.text = `Checking ${pkg.name}@${pkg.version}...`;
 
     if (result.vulns && result.vulns.length > 0) {
       for (const vuln of result.vulns) {
@@ -58,6 +63,8 @@ async function scanPackages(packages) {
       }
     }
   }
+
+  spinner.succeed(`Scanned ${packages.length} packages — found ${findings.length} vulnerabilit${findings.length === 1 ? 'y' : 'ies'}.`);
 
   return findings;
 }
