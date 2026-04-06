@@ -5,12 +5,8 @@
 A CLI tool that scans your `package.json` for known vulnerabilities using the [OSV database](https://osv.dev) - no API key required.
 
 ## Installation
-
 ```bash
-git clone https://github.com/YOUR_USERNAME/npm-scanner.git
-cd npm-scanner
-npm install
-npm install -g .
+npm install -g @sabrinahaniff/npm-scanner
 ```
 
 ## Usage
