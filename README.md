@@ -1,3 +1,5 @@
+![npm vulnerability scan](https://github.com/sabrinahaniff/npm-scanner/actions/workflows/scan.yml/badge.svg)
+
 # Npm Scanner
 
 A CLI tool that scans your `package.json` for known vulnerabilities using the [OSV database](https://osv.dev) - no API key required.
