@@ -1,11 +1,11 @@
 {
   "name": "@sabrinahaniff/npm-scanner",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Scan a package.json for known vulnerabilities",
   "main": "src/index.js",
   "bin": {
-  "npm-scanner": "./src/index.js"
-},
+    "npm-scanner": "./src/index.js"
+  },
   "scripts": {
     "start": "node src/index.js"
   },
