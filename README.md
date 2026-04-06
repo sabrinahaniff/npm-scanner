@@ -6,16 +6,8 @@ A CLI tool that scans your `package.json` for known vulnerabilities using the [O
 
 ## Installation
 ```bash
-<<<<<<< HEAD
 npm install -g @sabrinahaniff/npm-scanner
-=======
-git clone https://github.com/sabrinahaniff/npm-scanner.git
-cd npm-scanner
-npm install
-npm install -g .
->>>>>>> a7223e138ba0190b7b5a84eae0eae07e46da5ede
 ```
-
 ## Usage
 
 ### Scan a project
