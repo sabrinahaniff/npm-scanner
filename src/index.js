@@ -1,8 +1,10 @@
 #!/usr/bin/env node
+
 const { program } = require('commander');
 const { parsePackageJson } = require('./parser');
 const { scanPackages } = require('./scanner');
 const { printReport } = require('./reporter');
+const { applyFixes } = require('./fixer');
 
 program
   .name('npm-scanner')
@@ -14,6 +16,7 @@ program
   .description('Scan a package.json file')
   .option('--severity <level>', 'Only show vulnerabilities at or above this level (low, medium, high, critical)')
   .option('--json', 'Output results as JSON')
+  .option('--fix', 'Auto-update vulnerable packages to their fixed versions')
   .action(async (file, options) => {
     console.log(`\nScanning: ${file}`);
 
@@ -23,7 +26,6 @@ program
 
       let findings = await scanPackages(packages);
 
-      // Filter by severity if flag is passed
       if (options.severity) {
         const order = ['low', 'medium', 'moderate', 'high', 'critical'];
         const minIndex = order.indexOf(options.severity.toLowerCase());
@@ -37,13 +39,16 @@ program
         });
       }
 
-      // JSON output mode
       if (options.json) {
         console.log(JSON.stringify(findings, null, 2));
         return;
       }
 
       printReport(findings, packages);
+
+      if (options.fix && findings.length > 0) {
+        await applyFixes(findings, file);
+      }
 
     } catch (err) {
       console.error('Error:', err.message);
