@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const { program } = require('commander');
 const { parsePackageJson } = require('./parser');
 const { scanPackages } = require('./scanner');
